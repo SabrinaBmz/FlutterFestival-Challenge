@@ -35,8 +35,8 @@ class HomeBackgroundColor extends AnimatedWidget {
             child: Container(
               width: 150,
               height: 150,
-              decoration:
-                  const ShapeDecoration(shape: CircleBorder(), color: lime),
+              decoration: const ShapeDecoration(
+                  shape: CircleBorder(), color: Colors.lime),
             ),
           ),
           Positioned(
@@ -45,8 +45,8 @@ class HomeBackgroundColor extends AnimatedWidget {
             child: Container(
               width: 150 * (1 - progress.value) + 150,
               height: 150 * (1 - progress.value) + 150,
-              decoration:
-                  const ShapeDecoration(shape: CircleBorder(), color: orange),
+              decoration: const ShapeDecoration(
+                  shape: CircleBorder(), color: Colors.orange),
             ),
           ),
         ],

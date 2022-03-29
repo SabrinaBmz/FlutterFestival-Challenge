@@ -1,19 +1,20 @@
+import 'package:FlutterFestival_Challenge/main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_event_app/constant/text_style.dart';
-import 'package:flutter_event_app/models/event_model.dart';
-import 'package:flutter_event_app/pages/event_detail_page.dart';
-import 'package:flutter_event_app/utils/app_utils.dart';
-import 'package:flutter_event_app/widgets/bottom_navigation_bar.dart';
-import 'package:flutter_event_app/widgets/home_bg_color.dart';
-import 'package:flutter_event_app/widgets/nearby_event_card.dart';
-import 'package:flutter_event_app/widgets/ui_helper.dart';
-import 'package:flutter_event_app/widgets/upcoming_event_card.dart';
+import 'package:FlutterFestival_Challenge/constant/text_style.dart';
+import 'package:FlutterFestival_Challenge/models/event_model.dart';
+import 'package:FlutterFestival_Challenge/pages/event_detail_page.dart';
+import 'package:FlutterFestival_Challenge/utils/app_utils.dart';
+import 'package:FlutterFestival_Challenge/widgets/bottom_navigation_bar.dart';
+import 'package:FlutterFestival_Challenge/widgets/home_bg_color.dart';
+import 'package:FlutterFestival_Challenge/widgets/nearby_event_card.dart';
+import 'package:FlutterFestival_Challenge/widgets/ui_helper.dart';
+import 'package:FlutterFestival_Challenge/widgets/upcoming_event_card.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../models/event_model.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -45,18 +46,22 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   void initState() {
-
-
-    controller = AnimationController(vsync: this, duration: const Duration(seconds: 1))..forward();
-    opacityController = AnimationController(vsync: this, duration: const Duration(microseconds: 1));
-    opacity = Tween(begin: 1, end: 0).animate(CurvedAnimation(
+    controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1))
+          ..forward();
+    opacityController = AnimationController(
+        vsync: this, duration: const Duration(microseconds: 1));
+    opacity = Tween<double>(begin: 1, end: 0).animate(CurvedAnimation(
       curve: Curves.linear,
       parent: opacityController,
     ));
+    scrollController = ScrollController(initialScrollOffset: 0.0);
     scrollController.addListener(() {
       opacityController.value = offsetToOpacity(
-          currentOffset: scrollController.offset, maxOffset: scrollController.position.maxScrollExtent / 2);
+          currentOffset: scrollController.offset,
+          maxOffset: scrollController.position.maxScrollExtent / 2);
     });
+
     super.initState();
   }
 
@@ -70,13 +75,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Alert Dialog"),
-          );
-        });
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -117,10 +115,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
           hintText: "Search...",
-          hintStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
-          border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+          hintStyle: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24),
+          border:
+              UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+          enabledBorder:
+              UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+          focusedBorder:
+              UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
         ),
       ),
     );
@@ -132,7 +134,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("Upcoming Events", style: headerStyle.copyWith(color: Colors.white)),
+          Text("Upcoming Events",
+              style: headerStyle.copyWith(color: Colors.white)),
           UIHelper.verticalSpace(16),
           SizedBox(
             height: 250,
@@ -142,7 +145,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 final event = upcomingEvents[index];
-                return UpComingEventCard(event: event, onTap: () => viewEventDetail(event));
+                return UpComingEventCard(
+                    event: event, onTap: () => viewEventDetail(event));
               },
             ),
           ),
@@ -176,10 +180,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             primary: false,
             itemBuilder: (context, index) {
               final event = nearbyEvents[index];
-              var animation = Tween<double>(begin: 800.0, end: 0.0).animate(
+              var animation = Tween(begin: 800.0, end: 0.0).animate(
                 CurvedAnimation(
                   parent: controller,
-                  curve: Interval((1 / nearbyEvents.length) * index, 1.0, curve: Curves.decelerate),
+                  curve: Interval((1 / nearbyEvents.length) * index, 1.0,
+                      curve: Curves.decelerate),
                 ),
               );
               return AnimatedBuilder(

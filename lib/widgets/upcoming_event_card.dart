@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_event_app/constant/color.dart';
-import 'package:flutter_event_app/constant/text_style.dart';
-import 'package:flutter_event_app/models/event_model.dart';
-import 'package:flutter_event_app/utils/datetime_utils.dart';
-import 'package:flutter_event_app/widgets/ui_helper.dart';
+import 'package:FlutterFestival_Challenge/constant/color.dart';
+import 'package:FlutterFestival_Challenge/constant/text_style.dart';
+import 'package:FlutterFestival_Challenge/models/event_model.dart';
+import 'package:FlutterFestival_Challenge/utils/datetime_utils.dart';
+import 'package:FlutterFestival_Challenge/widgets/ui_helper.dart';
 
 class UpComingEventCard extends StatelessWidget {
   final Event event;
   final VoidCallback onTap;
-  const UpComingEventCard({Key? key, required this.event, required this.onTap}) : super(key: key);
+  const UpComingEventCard({key, required this.event, required this.onTap})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width * 0.8;
@@ -35,7 +36,7 @@ class UpComingEventCard extends StatelessWidget {
           width: double.infinity,
           child: Hero(
             tag: event.image,
-            child: Image.network(
+            child: Image.asset(
               event.image,
               fit: BoxFit.cover,
             ),
@@ -58,7 +59,8 @@ class UpComingEventCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(DateTimeUtils.getMonth(event.eventDate), style: monthStyle),
-              Text(DateTimeUtils.getDayOfMonth(event.eventDate), style: titleStyle),
+              Text(DateTimeUtils.getDayOfMonth(event.eventDate),
+                  style: titleStyle),
             ],
           ),
         ),
@@ -71,7 +73,8 @@ class UpComingEventCard extends StatelessWidget {
             UIHelper.verticalSpace(4),
             Row(
               children: <Widget>[
-                Icon(Icons.location_on, size: 16, color: Theme.of(context).primaryColor),
+                Icon(Icons.location_on,
+                    size: 16, color: Theme.of(context).primaryColor),
                 UIHelper.horizontalSpace(4),
                 Text(event.location.toUpperCase(), style: subtitleStyle),
               ],

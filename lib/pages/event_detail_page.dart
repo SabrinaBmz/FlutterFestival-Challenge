@@ -197,6 +197,15 @@ class _EventDetailPageState extends State<EventDetailPage>
             Card(
               shape: const CircleBorder(),
               elevation: 0,
+              child: InkWell(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.favorite_border,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
               color: Theme.of(context).primaryColor,
             ),
           ],
